@@ -1,0 +1,339 @@
+
+Rendering :
+
+https://stackoverflow.com/questions/10364298/will-the-same-addeventlistener-work
+https://ianstormtaylor.com/rendering-views-in-backbonejs-isnt-always-simple/
+
+Link : Es6 template 
+https://www.techiediaries.com/es6-template-literals-or-strings/
+
+https://www.lewagon.com/blog/from-jquery-to-dom-and-es6
+
+https://reactjs.org/docs/state-and-lifecycle.html
+
+https://blog.isquaredsoftware.com/2018/01/practical-redux-part-11-nested-data-trees/
+
+
+https://scotch.io/bar-talk/how-to-build-and-publish-a-npm-package
+
+Navigator will have render function to render html elements and addeventlistener;
+ViewStack will have render function to render html elements and addeventlistener;
+
+
+Navigation  Event Fired :
+	NavigationEvent(EventUtils.NAV_CHANGE_EVENT, "View3_Nav_Event", "testusers", this.route)
+
+ViewManager : 
+	1) 	handleNavChangeEvent -> 
+			- Get route;eventName;params;
+			- findRouteNavigator
+			- Check if Navigation is Back Event ?
+					Yes -> changeBackNavigation()
+					No -> changeNavigation();
+	2)  changeNavigation
+			- checkAndDestroyNavigators // check if present navigators are in use else destroy them 
+			- check if navigator is created else call createNavigator() 
+			- 
+	
+
+
+
+
+
+
+View will have following function for its lifecycle
+	AttachedView - CreateHTMLContent and AddToDOM  //isAttached = true
+	ActivateView - Show View with Optional Transition Animation //isActivate 
+	De-ActivateView - Hide View with Optional Transition Animation //
+	DetachView - removeHTMLContent and EventListners from DOM
+	DestroyView - Remove ViewObject and Other all View Related Things
+
+
+Making Application by extending Core Class Methods or using subclass methods :
+------------------------------------------------------
+Application 
+
+initialize() {
+
+start
+
+------------------------------------------------------
+ViewManager :
+
+initialize
+
+createNavigator
+
+routes:
+ { path: "/path1", navigatorId: "Navigator1" },
+------------------------------------------------------
+
+Navigator :
+
+initNavigator
+
+renderNavigatorContent() 
+
+createView
+
+
+createViewStack
+
+eventRoutes :
+
+{ navEvent: "View1_Nav_Event", viewstackId: "ViewStack1", viewId: "p1view1", path: "/path1" },
+            { navEvent: "View2_Nav_Event", viewstackId: "ViewStack1", viewId: "p1view2", path: "/path1" },
+            { navEvent: "View3_Nav_Event", viewstackId: "ViewStack1", viewId: "p1view3", path: "/path1" }, { navEvent: "View4_Nav_Event", viewstackId: "ViewStack1", viewId: "p1view4", path: "/path1" }
+
+destroy
+
+------------------------------------------------------
+Viewstack :
+
+initViewStack
+
+getViewStackRootElement
+
+renderViewStackContent
+
+
+destroy
+
+----------------------------------------------------
+View :
+
+initView
+
+bindView
+
+addViewHandler
+
+createViewContent
+
+removeViewHandler
+
+unBindView
+
+destroy
+
+----------------------------------------------------
+EventBroadCastor:
+
+appEventChannel
+navEventChannel
+
+
+
+	
+	
+
+
+
+
+
+
+// Accordion
+<div data-vType="ViewNavigator" id="appnav">
+  <div class="ui accordion">
+	  <div data-vType="ViewStack" id="HomeStack">
+	  	<div data-vType="View" id="HomeView">
+			  <div class="active title">
+			    <i class="dropdown icon"></i>
+			    What is a dog?
+			  </div>
+			  <div class="active content">
+			    <p>A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+			  </div>
+		</div>
+		<div data-vType="View" id="HomeView">
+			  <div class="title">
+			    <i class="dropdown icon"></i>
+			    What kinds of dogs are there?
+			  </div>
+			  <div class="content">
+			    <p>There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a breed of dog that they find to be compatible with their own lifestyle and desires from a companion.</p>
+			  </div>
+		</div>
+		<div data-vType="View" id="HomeView">
+			  <div class="title">
+			    <i class="dropdown icon"></i>
+			    How do you acquire a dog?
+			  </div>
+			  <div class="content">
+			    <p>Three common ways for a prospective owner to acquire a dog is from pet shops, private owners, or shelters.</p>
+			    <p>A pet shop may be the most convenient way to buy a dog. Buying a dog from a private owner allows you to assess the pedigree and upbringing of your dog before choosing to take it home. Lastly, finding your dog from a shelter, helps give a good home to a dog who may not find one so readily.</p>
+			  </div>
+		</div>
+	</div>
+</div>
+</div>
+
+//SideBar Menu 
+<div data-vType="ViewNavigator" id="appnav">
+	<div class="ui sidebar inverted vertical menu">
+	    <a class="item">
+	      1
+	    </a>
+	    <a class="item">
+	      2
+	    </a>
+	    <a class="item">
+	      3
+	    </a>
+  	</div>
+	  <div class="pusher">
+	  	<div data-vType="ViewStack" id="HomeStack">
+	    	<!-- Site content !-->
+	    	<div data-vType="View" id="HomeView">
+			  <div class="active content">
+			    <p>A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+			  </div>
+			</div>
+			<div data-vType="View" id="HomeView">
+			  <div class="active content">
+			    <p>A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+			  </div>
+			</div>
+	    </div>
+	  </div>
+ </div>
+$('.ui.sidebar')
+  .sidebar('toggle')
+;
+
+
+// Tabular Menu Each Tab have Single View Only with Tab Navigation History
+<div data-vType="ViewNavigator" id="appnav">
+	<div class="ui top attached tabular menu">
+	  <a class="item active" data-tab="first">First</a>
+	  <a class="item" data-tab="second">Second</a>
+	  <a class="item" data-tab="third">Third</a>
+	</div>
+	<div data-vType="ViewStack" id="HomeStack">
+		<div data-vType="View" id="Tab1">
+			<div class="ui bottom attached tab segment active" data-tab="first">
+			  First
+			</div>
+		</div>
+		<div data-vType="View" id="Tab2">
+			<div class="ui bottom attached tab segment" data-tab="second">
+			  Second
+			</div>
+		</div>
+		<div data-vType="View" id="Tab3">
+			<div class="ui bottom attached tab segment" data-tab="third">
+			  Third
+			</div>
+		</div>
+	</div>
+</div>
+
+
+// Tabular Menu Each Tab have Multiple Views with Each Tab have its own Navigation History
+<div data-vType="ViewNavigator" id="appnav">
+	<div class="ui top attached tabular menu">
+	  <a class="item active" data-tab="first">First</a>
+	  <a class="item" data-tab="second">Second</a>
+	  <a class="item" data-tab="third">Third</a>
+	</div>
+	<div data-vType="ViewStack" id="HomeStack">
+		<div class="ui bottom attached tab segment active" data-tab="first">
+			<div data-vType="View" id="V1Tab1">
+			  V1Tab1
+			</div>
+			<div data-vType="View" id="V2Tab1">
+			  V2Tab1
+			</div>
+		</div>
+	</div>
+	<div data-vType="ViewStack" id="HomeStack">
+		<div class="ui bottom attached tab segment" data-tab="second">
+			<div data-vType="View" id="V1Tab1">
+			  V1Tab1
+			</div>
+			<div data-vType="View" id="V2Tab1">
+			  V2Tab1
+			</div>
+		</div>
+	</div>
+</div>
+
+
+// Navigation Menu 
+<div data-vType="ViewNavigator" id="appnav">
+	<div class="ui secondary  menu">
+	  <a class="active item">
+	    Home
+	  </a>
+	  <a class="item">
+	    Messages
+	  </a>
+	  <a class="item">
+	    Friends
+	  </a>
+	  <div class="right menu">
+	    <div class="item">
+	      <div class="ui icon input">
+	        <input type="text" placeholder="Search...">
+	        <i class="search link icon"></i>
+	      </div>
+	    </div>
+	    <a class="ui item">
+	      Logout
+	    </a>
+	  </div>
+	</div>
+
+	<div data-vType="ViewStack" id="HomeStack">
+	    	<!-- Site content !-->
+	    	<div data-vType="View" id="HomeView">
+			  <div class="active content">
+			    <p>A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+			  </div>
+			</div>
+			<div data-vType="View" id="HomeView">
+			  <div class="active content">
+			    <p>A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+			  </div>
+			</div>
+	    </div>
+</div>
+
+// Side Tabular Menu 
+<div data-vType="ViewNavigator" id="appnav">
+	<div class="ui grid">
+	  <div class="four wide column">
+	    <div class="ui vertical fluid tabular menu">
+	      <a class="item active">
+	        Bio
+	      </a>
+	      <a class="item">
+	        Pics
+	      </a>
+	      <a class="item">
+	        Companies
+	      </a>
+	      <a class="item">
+	        Links
+	      </a>
+	    </div>
+	  </div>
+	<div data-vType="ViewStack" id="HomeStack">
+		  <div class="twelve wide stretched column">
+		    <div class="ui segment">
+		    	<div data-vType="View" id="HomeView">
+				  <div class="active content">
+				    <p>A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+				  </div>
+				</div>
+				<div data-vType="View" id="HomeView">
+				  <div class="active content">
+				    <p>A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+				  </div>
+				</div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+</div>
+
