@@ -1,7 +1,5 @@
-# ES6-boilerplate
-Standard ES6 Boilerplate configured with babel, webpack and eslint.
+# View4js Sample Application
+Sample Application configured with babel, rollup and eslint.
 
 ## Usage
-* `npm start` to run eslint on watch mode and dev-server at localhost:8080.
-* `npm run watch` to only watch for/recompile on changes.
-* `npm run build` to generate a minified, production-ready build.
+* `npm run build` to generate a minified, production-ready build. and run local server at localhost:10001
